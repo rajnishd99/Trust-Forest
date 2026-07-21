@@ -1,4 +1,4 @@
-# TrustForest Shashikant
+# TrustForest
 
 ## Links
 - [Live site](https://trust-forest.vercel.app/)
