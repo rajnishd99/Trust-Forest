@@ -123,31 +123,31 @@ exists in the current contract.
   <tr>
     <td width="50%">
       <strong>Home page</strong><br><br>
-      <img width="100%" alt="Home page screenshot" src="https://github.com/user-attachments/assets/c51177ad-9f64-4ba8-a6ee-c87ebff96984">
+    <img width="1876" height="1005" alt="image" src="https://github.com/user-attachments/assets/6e8ddf0d-2ff8-4204-ab2f-141a7225cc0a" />
     </td>
     <td width="50%">
       <strong>Submit claim form</strong><br><br>
-      <img width="100%" alt="Submit claim form screenshot" src="https://github.com/user-attachments/assets/fc862eb2-5071-4ed9-8ec4-712a6a0857df">
+     <img width="1876" height="1005" alt="image" src="https://github.com/user-attachments/assets/89090875-3c62-40a6-941a-f50e125b0e6d" />
     </td>
   </tr>
   <tr>
     <td width="50%">
       <strong>Dashboard</strong><br><br>
-      <img width="100%" alt="Dashboard screenshot" src="https://github.com/user-attachments/assets/ba7d4d26-2768-49d4-b76c-fe0e4e06fda5">
+     <img width="1876" height="1005" alt="image" src="https://github.com/user-attachments/assets/1073bf5f-c8d1-4867-9235-445c2b647157" />
     </td>
     <td width="50%">
       <strong>How it works</strong><br><br>
-      <img width="100%" alt="How it works screenshot" src="https://github.com/user-attachments/assets/6977e6bf-7eae-4976-9f5c-090a6f5269b3">
+      <img width="1876" height="1005" alt="image" src="https://github.com/user-attachments/assets/93c69e33-8d4b-46ae-84a7-ed7bd837a4f3" />
     </td>
   </tr>
   <tr>
     <td width="50%">
       <strong>CI</strong><br><br>
-      <img width="100%" alt="CI screenshot" src="https://github.com/user-attachments/assets/fd002123-7d6e-40bc-82a3-5fb758feb816">
+      <img width="1876" height="1005" alt="image" src="https://github.com/user-attachments/assets/33dab175-33bf-4491-97b3-089acc62997f" />
     </td>
     <td width="50%">
       <strong>Mobile responsive</strong><br><br>
-      <img width="100%" alt="Mobile responsive screenshot" src="https://github.com/user-attachments/assets/42246fe5-ba44-4791-9f7a-35f8eef09128">
+     <img width="373" height="920" alt="image" src="https://github.com/user-attachments/assets/0a81d49f-c4f6-4ddc-b93b-6e88da05857f" />
     </td>
   </tr>
 </table>
