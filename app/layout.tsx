@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Fraunces, Inter, Space_Mono } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { WalletProvider } from "@/components/WalletProvider";
@@ -16,6 +16,11 @@ const body = Inter({
   subsets: ["latin"],
 });
 
+const mono = Space_Mono({
+  variable: "--font-typewriter",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 export const metadata: Metadata = {
   title: "TrustForest | Reforestation on Stellar",
@@ -29,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} h-full antialiased`}>
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable} h-full antialiased`}>
       <body className="min-h-full bg-[var(--color-cream)] text-[var(--color-forest)]">
         <WalletProvider>
           <Nav />

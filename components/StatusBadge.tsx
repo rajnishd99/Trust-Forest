@@ -1,18 +1,31 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
 import type { ClaimStatus } from "@/lib/claims";
 
 const styles: Record<ClaimStatus, string> = {
-  Pending: "bg-[#fbbf24] text-[#78350f] border border-[#f59e0b]",
-  Approved: "bg-[#cce6a8] text-[#214116]",
-  Rejected: "bg-[#e7ad92] text-[#552414]",
-  Paid: "bg-[#b5dfc4] text-[#123522]",
-  Cancelled: "bg-[#d8cfbb] text-[#4b4031]",
-  Expired: "bg-[#c9d2d0] text-[#263f3a]",
+  Pending: "text-[var(--color-amber)]",
+  Approved: "text-[var(--color-forest)]",
+  Rejected: "text-[var(--color-soil)]",
+  Paid: "text-[var(--color-forest)]",
+  Cancelled: "text-[rgba(29,27,23,0.58)]",
+  Expired: "text-[rgba(29,27,23,0.58)]",
 };
 
 export function StatusBadge({ status }: { status: ClaimStatus }) {
+  const label = status === "Paid" ? "Verified" : status;
+  const reduceMotion = useReducedMotion();
   return (
-    <span className={`rounded-full px-3 py-1 text-xs font-bold ${styles[status]}`}>
-      {status}
-    </span>
+    <motion.span
+      key={status}
+      initial={reduceMotion ? false : { opacity: 0, scale: 1.45 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ type: "spring", stiffness: 420, damping: 16 }}
+      className="inline-block"
+    >
+      <span className={`stamp inline-block px-3 py-1.5 text-[10px] font-bold ${styles[status]}`}>
+        {label}
+      </span>
+    </motion.span>
   );
 }

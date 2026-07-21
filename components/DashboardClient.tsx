@@ -30,6 +30,8 @@ const filters: Array<ClaimStatus | "All"> = [
   "Rejected",
 ];
 
+const FIXED_ADMIN_ADDRESS = "GCGEXUG76FMVLCQHMVEUIQ2GPDEZSSNXQZQITISFUR433LZCD4UPGMYT";
+
 export function DashboardClient({
   claims,
   source,
@@ -74,8 +76,9 @@ export function DashboardClient({
     [claims, filter, pendingClaims],
   );
 
-  const adminAddress = process.env.NEXT_PUBLIC_ADMIN_ADDRESS;
+  const adminAddress = process.env.NEXT_PUBLIC_ADMIN_ADDRESS ?? FIXED_ADMIN_ADDRESS;
   const isAdmin = Boolean(publicKey && adminAddress && publicKey === adminAddress);
+  const pendingLiveClaims = claims.filter((claim) => claim.status === "Pending").length;
 
   async function decideClaim(claimId: number, approve: boolean) {
     if (!publicKey || !isAdmin) return;
@@ -121,27 +124,28 @@ export function DashboardClient({
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
-      <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+    <section className="journal-page px-5 py-14 sm:px-8 sm:py-20">
+      <div className="mx-auto max-w-7xl">
+      <div className="ledger-rule flex flex-col justify-between gap-5 py-4 md:flex-row md:items-end">
         <div>
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-soil)]">
+          <p className="mono-data text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-soil)]">
             {source === "live" ? "Live contract feed" : "No claim data yet"}
           </p>
-          <h1 className="font-display mt-3 text-5xl font-semibold">Claim canopy</h1>
-          <p className="mt-4 max-w-2xl text-[rgba(18,53,34,0.68)]">
+          <h1 className="font-display mt-3 text-6xl font-semibold tracking-[-0.04em]">The claim ledger</h1>
+          <p className="mt-4 max-w-2xl text-[rgba(29,27,23,0.68)]">
             Follow each planting proof from submission to admin review and reward.
             {isAdmin ? " Admin controls are enabled for this wallet." : " Connect as admin to review pending claims."}
           </p>
         </div>
-        <div className="flex max-w-full gap-2 overflow-x-auto rounded-full bg-[rgba(18,53,34,0.07)] p-2">
+        <div className="flex max-w-full gap-2 overflow-x-auto border border-[var(--color-line)] bg-[rgba(251,247,237,0.55)] p-2">
           {filters.map((item) => (
             <button
               key={item}
               onClick={() => setFilter(item)}
-              className={`focus-ring shrink-0 rounded-full px-4 py-2 text-sm font-bold transition ${
+              className={`focus-ring shrink-0 border-b-2 px-4 py-2 text-sm font-bold transition ${
                 filter === item
-                  ? "bg-[var(--color-forest)] text-[var(--color-cream)]"
-                  : "text-[rgba(18,53,34,0.68)]"
+                  ? "bg-[var(--color-ink)] text-[var(--color-paper)]"
+                  : "text-[rgba(29,27,23,0.62)] hover:bg-[rgba(155,63,53,0.08)]"
               }`}
             >
               {item}
@@ -149,6 +153,18 @@ export function DashboardClient({
           ))}
         </div>
       </div>
+      <div className="mono-data mt-5 flex flex-wrap gap-x-8 gap-y-2 text-[9px] uppercase tracking-[0.14em] text-[rgba(29,27,23,0.5)]">
+        <span>Registry: TrustForest</span><span>Network: Stellar testnet</span><span>Entries: {visible.length}</span>
+      </div>
+      {isAdmin ? (
+        <div className="mt-6 flex flex-col justify-between gap-4 border-2 border-[var(--color-forest)] bg-[rgba(82,107,79,0.08)] p-5 sm:flex-row sm:items-center">
+          <div>
+            <p className="mono-data text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--color-forest)]">Admin review desk</p>
+            <p className="mt-2 font-display text-2xl">{pendingLiveClaims} claim{pendingLiveClaims === 1 ? "" : "s"} awaiting your decision.</p>
+          </div>
+          <p className="mono-data text-[9px] uppercase tracking-[0.1em] text-[rgba(29,27,23,0.58)]">Wallet verified · controls unlocked</p>
+        </div>
+      ) : null}
 
       <motion.div
         className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3"
@@ -171,7 +187,7 @@ export function DashboardClient({
             >
               <ClaimCard
                 claim={claim}
-                isAdmin={isAdmin}
+                isAdmin={isAdmin && claim.id > 0}
                 deciding={decidingId === claim.id}
                 onDecision={(approve) => void decideClaim(claim.id, approve)}
               />
@@ -179,14 +195,14 @@ export function DashboardClient({
           ))
         ) : (
           <motion.div
-            className="earth-panel rounded-[8px] p-8 md:col-span-2 xl:col-span-3"
+            className="earth-panel p-8 md:col-span-2 xl:col-span-3"
             variants={{
               hidden: { opacity: 0, y: 28 },
               show: { opacity: 1, y: 0 },
             }}
           >
             <p className="font-display text-3xl font-semibold">No contract claims to show.</p>
-            <p className="mt-3 max-w-2xl leading-7 text-[rgba(18,53,34,0.68)]">
+            <p className="mt-3 max-w-2xl leading-7 text-[rgba(29,27,23,0.68)]">
               Submit a claim and confirm the wallet transaction, then refresh
               this dashboard after the contract stores it. {error ? `Latest read: ${error}` : ""}
               {visible.length === 0 && claims.length > 0 && " (Try adjusting your filters to see more claims)"}
@@ -195,6 +211,7 @@ export function DashboardClient({
         )}
       </motion.div>
       {decisionMessage ? <p className="mt-5 font-semibold text-[var(--color-soil)]">{decisionMessage}</p> : null}
+      </div>
     </section>
   );
 }

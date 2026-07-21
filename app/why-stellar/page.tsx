@@ -6,15 +6,15 @@ import { StatCounter } from "@/components/StatCounter";
 export default function WhyStellarPage() {
   return (
     <>
-      <section className="px-5 py-20 sm:px-8">
+      <section className="journal-page px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-5xl text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-soil)]">
-            Why Stellar
+          <p className="mono-data text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-soil)]">
+            Ledger notes / settlement
           </p>
           <h1 className="font-display mt-4 text-5xl font-semibold leading-tight sm:text-7xl">
             Tiny fees matter when every sapling carries a tiny stake.
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[rgba(18,53,34,0.68)]">
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[rgba(29,27,23,0.68)]">
             Tree claims need fast settlement, low-cost decisions, and simple asset
             movement. Stellar gives the contract room to reward small acts
             without fees swallowing the impact.
@@ -48,10 +48,10 @@ export default function WhyStellarPage() {
             },
           ].map((item, index) => (
             <Reveal key={item.title} delay={index * 0.08}>
-              <div className="earth-panel h-full rounded-[8px] p-7">
-                <item.icon className="text-[var(--color-moss)]" size={30} />
+              <div className="earth-panel h-full p-7">
+                <item.icon className="text-[var(--color-soil)]" size={30} strokeWidth={1.3} />
                 <h2 className="font-display mt-6 text-3xl font-semibold">{item.title}</h2>
-                <p className="mt-3 leading-7 text-[rgba(18,53,34,0.68)]">{item.text}</p>
+                <p className="mt-3 leading-7 text-[rgba(29,27,23,0.68)]">{item.text}</p>
               </div>
             </Reveal>
           ))}
@@ -59,7 +59,7 @@ export default function WhyStellarPage() {
         <div className="mx-auto mt-10 max-w-7xl">
           <Link
             href="/dashboard"
-            className="focus-ring inline-flex items-center gap-2 rounded-full bg-[var(--color-forest)] px-6 py-4 font-bold text-[var(--color-cream)]"
+            className="focus-ring inline-flex items-center gap-2 bg-[var(--color-soil)] px-6 py-4 font-bold text-[var(--color-paper)]"
           >
             See claims <ArrowRight size={18} />
           </Link>

@@ -1,15 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --color-forest: #123522;
-  --color-moss: #4f7b45;
-  --color-leaf: #8fb35b;
-  --color-soil: #7b4e2d;
-  --color-bark: #3f2a1d;
-  --color-amber: #e5a83a;
-  --color-cream: #f7f0df;
-  --color-mist: #e4ead6;
-  --color-clay: #b66f45;
+  --color-forest: #526b4f;
+  --color-moss: #657b5f;
+  --color-leaf: #8a9a74;
+  --color-soil: #9b3f35;
+  --color-bark: #302c25;
+  --color-amber: #c28b43;
+  --color-cream: #f3ecdc;
+  --color-mist: #e5dece;
+  --color-clay: #b96850;
+  --color-ink: #1d1b17;
+  --color-paper: #fbf7ed;
+  --color-line: rgba(29, 27, 23, 0.18);
   --background: var(--color-cream);
   --foreground: var(--color-forest);
 }
@@ -19,36 +22,106 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-body);
   --font-serif: var(--font-display);
+  --font-mono: var(--font-typewriter);
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: var(--color-ink);
   font-family: var(--font-body), sans-serif;
+  background-image: radial-gradient(rgba(29, 27, 23, 0.055) 0.7px, transparent 0.7px);
+  background-size: 9px 9px;
 }
 
 ::selection {
-  background: var(--color-amber);
-  color: var(--color-forest);
+  background: var(--color-soil);
+  color: var(--color-paper);
 }
 
 .font-display {
   font-family: var(--font-display), serif;
 }
 
-.earth-panel {
-  border: 1px solid rgba(18, 53, 34, 0.14);
-  background:
-    linear-gradient(135deg, rgba(255, 251, 235, 0.84), rgba(228, 234, 214, 0.72)),
-    radial-gradient(circle at 10% 0%, rgba(229, 168, 58, 0.2), transparent 32%);
-  box-shadow: 0 24px 80px rgba(63, 42, 29, 0.12);
+.font-mono,
+.mono-data {
+  font-family: var(--font-typewriter), monospace;
+  letter-spacing: 0.035em;
 }
 
+.earth-panel {
+  border: 1px dashed var(--color-line);
+  background: var(--color-paper);
+  box-shadow: 5px 7px 0 rgba(29, 27, 23, 0.08), 0 18px 40px rgba(78, 63, 40, 0.08);
+  position: relative;
+}
+
+.earth-panel::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  pointer-events: none;
+  border: 1px dotted rgba(29, 27, 23, 0.1);
+}
+
+.journal-page {
+  position: relative;
+  background: var(--color-paper);
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.journal-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent 0 31px, rgba(82, 107, 79, 0.08) 32px);
+}
+
+.ledger-rule {
+  border-top: 1px dashed var(--color-line);
+  border-bottom: 1px dashed var(--color-line);
+}
+
+.stamp {
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  font-family: var(--font-typewriter), monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: rotate(-8deg);
+}
+
+.tape {
+  position: relative;
+}
+
+.tape::before {
+  content: "";
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  z-index: 2;
+  width: 84px;
+  height: 25px;
+  transform: translateX(-50%) rotate(-3deg);
+  background: rgba(210, 181, 121, 0.48);
+  border-left: 1px solid rgba(120, 91, 45, 0.16);
+  border-right: 1px solid rgba(120, 91, 45, 0.16);
+}
+
+.journal-card { transition: transform 220ms ease, box-shadow 220ms ease; }
+.journal-card:hover {
+  transform: translateY(-5px) rotate(0deg) !important;
+  box-shadow: 8px 12px 0 rgba(29, 27, 23, 0.1), 0 20px 42px rgba(78, 63, 40, 0.1);
+}
+.journal-card:nth-child(3n + 1) { transform: rotate(-0.8deg); }
+.journal-card:nth-child(3n + 2) { transform: rotate(0.65deg); }
+.journal-card:nth-child(3n) { transform: rotate(-0.35deg); }
+
 .bark-line {
-  background-image:
-    linear-gradient(90deg, rgba(18, 53, 34, 0.08) 1px, transparent 1px),
-    linear-gradient(rgba(18, 53, 34, 0.06) 1px, transparent 1px);
-  background-size: 44px 44px;
+  background-image: radial-gradient(rgba(155, 63, 53, 0.2) 1px, transparent 1px);
+  background-size: 13px 13px;
 }
 
 .focus-ring {
@@ -56,7 +129,20 @@ body {
 }
 
 .focus-ring:focus-visible {
-  box-shadow: 0 0 0 3px rgba(229, 168, 58, 0.55);
+  box-shadow: 0 0 0 3px rgba(155, 63, 53, 0.35);
+}
+
+@media (max-width: 640px) {
+  .stamp { transform: rotate(-3deg); }
+  .earth-panel::after { inset: 5px; }
+  .journal-card,
+  .journal-card:nth-child(3n + 1),
+  .journal-card:nth-child(3n + 2),
+  .journal-card:nth-child(3n) { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stamp { transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

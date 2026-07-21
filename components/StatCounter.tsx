@@ -37,16 +37,16 @@ export function StatCounter({
   return (
     <motion.div
       ref={ref}
-      className="earth-panel rounded-[8px] p-7"
+      className="earth-panel p-7"
       initial={reduceMotion ? false : { opacity: 0, y: 22 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
-      <p className="font-display text-7xl font-extrabold text-[var(--color-forest)]">
+      <p className="mono-data text-6xl font-bold text-[var(--color-ink)]">
         {display}
-        <span className="text-3xl text-[var(--color-clay)]">{suffix}</span>
+        <span className="text-xl text-[var(--color-soil)]">{suffix}</span>
       </p>
-      <p className="mt-3 text-sm font-bold uppercase tracking-[0.16em] text-[var(--color-soil)]">
+      <p className="mono-data mt-3 text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--color-soil)]">
         {label}
       </p>
     </motion.div>

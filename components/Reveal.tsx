@@ -3,8 +3,8 @@
 import { motion, type Variants, useReducedMotion } from "framer-motion";
 
 const variants: Variants = {
-  hidden: { opacity: 0, y: 28, scale: 0.98 },
-  show: { opacity: 1, y: 0, scale: 1 },
+  hidden: { opacity: 0, y: 24, rotate: -1.2, scale: 0.98 },
+  show: { opacity: 1, y: 0, rotate: 0, scale: 1 },
 };
 
 export function Reveal({
