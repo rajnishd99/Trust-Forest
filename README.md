@@ -1,7 +1,7 @@
 # TrustForest Shashikant
 
 ## Links
-- [Live site](https://green-stake-mocha.vercel.app/)
+- [Live site](https://trust-forest.vercel.app/)
 - [Demo video](#demo-video)
 - [Project details](#project-details)
 - [Contract details](#contract-details)
@@ -16,10 +16,10 @@
 TrustForest is a tree-plantation verification app built with Next.js and a Soroban smart contract.
 
 ### Live site
-- https://green-stake-mocha.vercel.app/
+- https://trust-forest.vercel.app/
 
 ### Demo video
-- https://drive.google.com/file/d/1bWOhtKgSNgE365eaci0XivH2lps4qiAB/view?usp=sharing
+- https://drive.google.com/file/d/1Ovcw48-qmOTTTP0xJP1_-XJk1xXkbAC1/view?usp=sharing
 
 ### Basic stack
 - Frontend: Next.js 16, React 19, TypeScript
