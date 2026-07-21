@@ -33,7 +33,7 @@ TrustForest is a tree-plantation verification app built with Next.js and a Sorob
 - Planter uploads photo to Pinata, then submits claim with IPFS URI, grid cell, and stake
 - Wallet connect uses Stellar Wallets Kit
 - Admin reviews each claim and accepts or rejects it
-- Approved claim returns stake and pays fixed reward
+- Accepted claim returns stake and pays fixed `5 XLM` reward (`50,000,000` stroops), then becomes `Paid`
 - Rejected claim refunds stake
 - Expired or cancelled claims free claim slots again
 
@@ -61,20 +61,24 @@ Contract lives in [`contract/src/lib.rs`](./contract/src/lib.rs).
 - `CB3RX6ISHEZXGHXGOU7OLLK5QATU7X6FSM6RWZEKXXXFCRCJRSBHIBYF`
 
 ### Core state
-- Admin address
-- Admin address: `GCGEXUG76FMVLCQHMVEUIQ2GPDEZSSNXQZQITISFUR433LZCD4UPGMYT`
+- Fixed admin address: `GCGEXUG76FMVLCQHMVEUIQ2GPDEZSSNXQZQITISFUR433LZCD4UPGMYT`
 - Next claim ID
 - Claim records
 - Photo URI index
 - Grid cell index
 
+Each claim stores its ID, planter address, photo URI, grid cell, status, stake
+amount, submission timestamp, and expiry ledger. No verifier set or vote list
+exists in the current contract.
+
 ### Main functions
-- `init`: sets fixed admin and deployment initializer
+- `init(admin, initializer)`: one-time setup; `initializer` authenticates deployment and `admin` becomes the only decision authority
 - `submit_claim`: stores claim, transfers stake, indexes photo and grid cell
-- `decide_claim`: admin accepts or rejects a pending claim
+- `decide_claim(admin, claim_id, approve)`: authenticated admin accepts or rejects a pending claim; acceptance pays stake plus reward, rejection refunds stake
 - `update_claim`: lets planter update pending claim
 - `cancel_claim`: lets planter cancel pending claim
 - `expire_claim`: closes stale claim after expiry ledger
+- `delete_claim`: admin removes rejected or cancelled claim records
 - `get_claim`: returns one claim
 - `list_claims`: returns claims with optional status filter
 
@@ -82,17 +86,19 @@ Contract lives in [`contract/src/lib.rs`](./contract/src/lib.rs).
 - Photo URI must stay unique
 - Grid cell must stay unique
 - Stake must be positive
-- Admin acceptance triggers payout
-- Admin rejection triggers refund
+- Only stored admin can call `decide_claim`
+- Acceptance changes `Pending` → `Paid` after payout
+- Rejection changes `Pending` → `Rejected` and refunds stake
 - Expired claims release indexes
 
 ## How it works
 1. Planter picks photo and app uploads it to Pinata.
 2. App stores returned `ipfs://CID` on-chain with grid cell and stake.
 3. Contract locks stake and stores claim as `Pending`.
-4. Admin reviews claim from the dashboard.
-5. Admin acceptance moves claim through payout; rejection refunds stake.
-6. Expired or cancelled claims clear reserved indexes.
+4. Only wallet matching `NEXT_PUBLIC_ADMIN_ADDRESS` sees dashboard accept/reject controls.
+5. Contract independently authenticates the admin address, so UI visibility is not the security boundary.
+6. Admin acceptance moves claim through payout; rejection refunds stake.
+7. Expired or cancelled claims clear reserved indexes.
 
 ## Project structure
 ```text
@@ -175,10 +181,12 @@ npm run contract:build
 - `NEXT_PUBLIC_CONTRACT_ID`
 - `NEXT_PUBLIC_RPC_URL`
 - `NEXT_PUBLIC_NETWORK_PASSPHRASE`
+- `NEXT_PUBLIC_ADMIN_ADDRESS`
 - `NEXT_PUBLIC_PINATA_GATEWAY`
 - `PINATA_JWT`
 - `PINATA_GATEWAY`
 - `ADMIN_ADDRESS`
+- `DEPLOYER_IDENTITY`
 
 ## Scripts
 - `npm run dev`: start Next.js dev server
@@ -196,6 +204,7 @@ npm run contract:build
 
 ## Notes
 - `contract/deploy.sh` builds, deploys, and initializes contract on Stellar testnet.
+- Deployment uses `DEPLOYER_IDENTITY` to authenticate `init`; it stores the fixed `ADMIN_ADDRESS` separately for later claim decisions.
 - Current testnet contract ID is `CB3RX6ISHEZXGHXGOU7OLLK5QATU7X6FSM6RWZEKXXXFCRCJRSBHIBYF`.
 - `NEXT_PUBLIC_ADMIN_ADDRESS` gates accept/reject controls to the fixed admin wallet.
 - CI uses `npm install --no-package-lock` so frontend checks do not depend on `package-lock.json`.
