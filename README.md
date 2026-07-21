@@ -175,7 +175,7 @@ npm run contract:build
 ### CD / Docker
 - `Dockerfile` added for containerized deployment.
 - Next uses `output: "standalone"` so Docker image can run without full source tree.
-- Build image with `docker build -t trustforest-shashikant:local .`
+- Build image with `docker build -t trustforest- :local .`
 
 ### Environment variables
 - `NEXT_PUBLIC_CONTRACT_ID`
@@ -214,4 +214,4 @@ npm run contract:build
 - `npm run test`: 4 tests passed.
 - `npm run lint`: passed.
 - `npm run build`: passed.
-- `docker build -t trustforest-shashikant:local .`: Docker daemon required locally.
+- `docker build -t trustforest- :local .`: Docker daemon required locally.

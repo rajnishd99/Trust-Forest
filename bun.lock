@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "trustforest-shashikant",
+      "name": "trustforest- ",
       "dependencies": {
         "@creit.tech/stellar-wallets-kit": "^2.5.0",
         "@stellar/stellar-sdk": "^16.0.1",
