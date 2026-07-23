@@ -10,6 +10,7 @@ const links = [
   { href: "/how-it-works", label: "How it works" },
   { href: "/submit", label: "Submit" },
   { href: "/dashboard", label: "Dashboard" },
+  { href: "/contract", label: "Contract" },
   { href: "/why-stellar", label: "Why Stellar" },
 ];
 
@@ -33,7 +34,7 @@ export function Nav() {
             <span className="mono-data mt-1 block text-[9px] uppercase tracking-[0.14em] text-[rgba(29,27,23,0.55)]">Planting registry</span>
           </span>
         </Link>
-        <div className="hidden items-center gap-1 border-x border-[var(--color-line)] px-3 lg:flex">
+        <div className="hidden items-center gap-1 border-x border-[var(--color-line)] px-3 xl:flex">
           {links.map((link) => {
             const active =
               link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
@@ -86,7 +87,7 @@ export function Nav() {
           Wallet error: {error}
         </div>
       ) : null}
-      <div className="flex gap-3 overflow-x-auto px-5 pb-3 lg:hidden">
+      <div className="flex gap-3 overflow-x-auto px-5 pb-3 xl:hidden">
         {links.map((link) => (
           <Link
             key={link.href}

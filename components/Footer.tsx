@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { getContractId } from "@/lib/contract-info";
 
 export function Footer() {
+  const contractId = getContractId();
+
   return (
     <footer className="mt-20 border-t-2 border-[var(--color-ink)] bg-[var(--color-mist)] text-[var(--color-ink)]">
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr]">
@@ -18,6 +21,7 @@ export function Footer() {
           <div className="mt-4 grid gap-2 text-sm text-[rgba(29,27,23,0.7)]">
             <Link href="/how-it-works">How it works</Link>
             <Link href="/dashboard">Dashboard</Link>
+            <Link href="/contract">Contract</Link>
             <Link href="/why-stellar">Why Stellar</Link>
           </div>
         </div>
@@ -25,9 +29,12 @@ export function Footer() {
           <p className="mono-data text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-soil)]">
             Testnet
           </p>
-          <p className="mono-data mt-4 break-all text-[10px] leading-5 text-[rgba(29,27,23,0.62)]">
-            {process.env.NEXT_PUBLIC_CONTRACT_ID ?? process.env.CONTRACT_ID}
-          </p>
+          <Link
+            href="/contract"
+            className="focus-ring mono-data mt-4 block break-all text-[10px] leading-5 text-[rgba(29,27,23,0.62)] hover:text-[var(--color-soil)]"
+          >
+            {contractId}
+          </Link>
         </div>
       </div>
     </footer>

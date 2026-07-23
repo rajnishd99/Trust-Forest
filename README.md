@@ -2,6 +2,9 @@
 
 ## Links
 - [Live site](https://trust-forest.vercel.app/)
+- [Contract page](https://trust-forest.vercel.app/contract)
+- [Deployed contract](https://stellar.expert/explorer/testnet/contract/CB3RX6ISHEZXGHXGOU7OLLK5QATU7X6FSM6RWZEKXXXFCRCJRSBHIBYF)
+- [Contract source](https://github.com/rajnishd99/Trust-Forest/blob/main/contract/src/lib.rs)
 - [Demo video](#demo-video)
 - [Project details](#project-details)
 - [Contract details](#contract-details)
@@ -52,7 +55,10 @@ TrustForest is a tree-plantation verification app built with Next.js and a Sorob
 | The tree growth visualizer lacks a continuous pulse effect. | Added animate-pulse to the canopy rings | `8f8566c` |
 
 ## Contract details
-Contract lives in [`contract/src/lib.rs`](./contract/src/lib.rs).
+Contract lives in [`contract/src/lib.rs`](./contract/src/lib.rs). Open its
+[app contract page](https://trust-forest.vercel.app/contract), inspect the
+[deployed testnet contract](https://stellar.expert/explorer/testnet/contract/CB3RX6ISHEZXGHXGOU7OLLK5QATU7X6FSM6RWZEKXXXFCRCJRSBHIBYF), or read the
+[Rust source directly](https://github.com/rajnishd99/Trust-Forest/blob/main/contract/src/lib.rs).
 
 ### Contract name
 - `tree-planting-verification`
@@ -107,6 +113,7 @@ exists in the current contract.
 │   ├── page.tsx
 │   ├── submit
 │   ├── dashboard
+│   ├── contract
 │   ├── how-it-works
 │   └── why-stellar
 ├── components
@@ -175,7 +182,8 @@ npm run contract:build
 ### CD / Docker
 - `Dockerfile` added for containerized deployment.
 - Next uses `output: "standalone"` so Docker image can run without full source tree.
-- Build image with `docker build -t trustforest- :local .`
+- Build image with `docker build -t trustforest:local .`
+- Vercel deploys the frontend automatically through its Git integration.
 
 ### Environment variables
 - `NEXT_PUBLIC_CONTRACT_ID`
@@ -199,6 +207,7 @@ npm run contract:build
 - `/` - landing page
 - `/submit` - claim submission flow
 - `/dashboard` - claim dashboard
+- `/contract` - deployed contract, source, and client function map
 - `/how-it-works` - contract flow explanation
 - `/why-stellar` - Stellar rationale
 
@@ -207,7 +216,8 @@ npm run contract:build
 - Deployment uses `DEPLOYER_IDENTITY` to authenticate `init`; it stores the fixed `ADMIN_ADDRESS` separately for later claim decisions.
 - Current testnet contract ID is `CB3RX6ISHEZXGHXGOU7OLLK5QATU7X6FSM6RWZEKXXXFCRCJRSBHIBYF`.
 - `NEXT_PUBLIC_ADMIN_ADDRESS` gates accept/reject controls to the fixed admin wallet.
-- CI uses `npm install --no-package-lock` so frontend checks do not depend on `package-lock.json`.
+- CI tests, type-checks, lints, and builds frontend; it also checks formatting
+  and builds contract to production WASM.
 - Dashboard and claim pages render photo from Pinata/IPFS URI, not local file path.
 
 ## Verification Results
